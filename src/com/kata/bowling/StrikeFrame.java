@@ -12,6 +12,9 @@ public class StrikeFrame implements Frame{
         if(nextFrameScore > 10){
             nextFrameScore = 10;
         }
+        if (nextFrameScore <0) {
+            nextFrameScore = 20;
+        }
         return 10 + nextFrameScore;
     }
 }

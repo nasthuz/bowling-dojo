@@ -36,22 +36,22 @@ class BowlingGameTest {
         Assertions.assertEquals(183,game.getTotalPoints());
     }
 
-//184
+//194
     @org.junit.jupiter.api.Test
     void shouldCalculateMixedEndingWithStrikeAndReturnScore() {
-        Game game = new Game("6/ 2/ X 4/ X 4/ X 3/ X X11");
-        Assertions.assertEquals(185,game.getTotalPoints());
-    }
-//169
-    @org.junit.jupiter.api.Test
-    void shouldCalculateMixedDoubleStrikesAndSparesAndReturnScore() {
-        Game game = new Game("6/ 2/ X X 3/ 4/ X X 4/ 2/1");
-        Assertions.assertEquals(176,game.getTotalPoints());
+        Game game = new Game("6/ 2/ X 4/ X 4/ X 3/ 4/ X11");
+        Assertions.assertEquals(178,game.getTotalPoints());
     }
 
     @org.junit.jupiter.api.Test
     void shouldCalculateMixedAndReturnScore() {
         Game game = new Game("6/ -- -4 X -- 4/ X 8- 41 2/1");
         Assertions.assertEquals(86,game.getTotalPoints());
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateOpenWithStrikeEndingAndReturnScore() {
+        Game game = new Game("11 11 11 11 11 11 11 11 11 XXX");
+        Assertions.assertEquals(48,game.getTotalPoints());
     }
 }
