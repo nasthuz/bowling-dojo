@@ -11,7 +11,7 @@ class BowlingGameTest {
         Game game = new Game("-- -- -- -- -- -- -- -- -- -- ");
         Assertions.assertEquals(0,game.getTotalPoints());
     }
-//200
+
     @org.junit.jupiter.api.Test
     void shouldCalculateAllStrikesAndReturnMax() {
         Game game = new Game("X X X X X X X X X XXX");
@@ -36,7 +36,6 @@ class BowlingGameTest {
         Assertions.assertEquals(183,game.getTotalPoints());
     }
 
-//194
     @org.junit.jupiter.api.Test
     void shouldCalculateMixedEndingWithStrikeAndReturnScore() {
         Game game = new Game("6/ 2/ X 4/ X 4/ X 3/ 4/ X11");
