@@ -49,8 +49,28 @@ class BowlingGameTest {
     }
 
     @org.junit.jupiter.api.Test
-    void shouldCalculateOpenWithStrikeEndingAndReturnScore() {
+    void shouldCalculateOpenFramesWithStrikeEndingAndReturnScore() {
         Game game = new Game("11 11 11 11 11 11 11 11 11 XXX");
         Assertions.assertEquals(48,game.getTotalPoints());
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateOpenFramesWithSpareEndingAndReturnScore() {
+        Game game = new Game("11 11 11 11 11 11 11 11 11 1/1");
+        Assertions.assertEquals(29,game.getTotalPoints());
+    }
+
+    @org.junit.jupiter.api.Test
+    void invalidNumberOfFramesLessThanTenExceptionTesting() {
+        Game game = new Game("11 11 11 11 11 11 11 ");
+        assertThrows(IllegalArgumentException.class,
+                () -> game.convertInitData("Invalid number of frames"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void invalidNumberOfFramesMoreThanTenExceptionTesting() {
+        Game game = new Game("11 11 11 11 11 11 11 11 11 11 11 11 11");
+        assertThrows(IllegalArgumentException.class,
+                () -> game.convertInitData("Invalid number of frames"));
     }
 }

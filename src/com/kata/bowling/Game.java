@@ -21,16 +21,19 @@ public class Game {
     }
 
     public void convertInitData(String data){
-        String[] splittedData = data.split(" ");
         int indexOfFrame = 0;
-        HashMap<Integer,ArrayList<Integer>> dataSet = new HashMap<>();
-
-        splitDataIntoFrames(splittedData, indexOfFrame, dataSet);
-        transferData(dataSet);
-        getScore();
+        String[] splittedData = data.split(" ");
+        HashMap<Integer,ArrayList<Integer>> dataMap = new HashMap<>();
+        splitDataIntoFrames(splittedData, indexOfFrame, dataMap);
+        try{
+            transferData(dataMap);
+            getScore();
+        }catch (IllegalArgumentException e){
+            e.getMessage();
+        }
     }
 
-    public void splitDataIntoFrames(String[] splittedData, int indexOfFrame, HashMap<Integer, ArrayList<Integer>> dataSet) {
+    public void splitDataIntoFrames(String[] splittedData, int indexOfFrame, HashMap<Integer, ArrayList<Integer>> dataMap) {
         for (String i : splittedData){
             if (i.equals("X")){
                 i = "X0";
@@ -45,24 +48,27 @@ public class Game {
                 }
                 frameDataInt.add(Integer.parseInt(j));
             }
-            dataSet.put(indexOfFrame,frameDataInt);
+            dataMap.put(indexOfFrame,frameDataInt);
             indexOfFrame++;
         }
     }
 
-    public void transferData(HashMap<Integer, ArrayList<Integer>> dataSet) {
-        for(HashMap.Entry<Integer,ArrayList<Integer>> i: dataSet.entrySet()){
+    public void transferData(HashMap<Integer, ArrayList<Integer>> dataMap) {
+        if(dataMap.size() != 10){
+            throw new IllegalArgumentException("Invalid number of frames");
+        }
+        for(HashMap.Entry<Integer,ArrayList<Integer>> i: dataMap.entrySet()){
             int firstTry;
             int secondTry;
             int nextTriesScore;
             if (i.getValue().get(0) == 10){
                 
                 if(i.getKey() == 9 && i.getValue().size() == 3 ){
-                     firstTry = dataSet.get(i.getKey()).get(1);
-                     secondTry = dataSet.get(i.getKey()).get(2);
+                     firstTry = dataMap.get(i.getKey()).get(1);
+                     secondTry = dataMap.get(i.getKey()).get(2);
                 }else{
-                    firstTry = dataSet.get(i.getKey()+1).get(0);
-                    secondTry = dataSet.get(i.getKey()+1).get(1);
+                    firstTry = dataMap.get(i.getKey()+1).get(0);
+                    secondTry = dataMap.get(i.getKey()+1).get(1);
                 }
                 nextTriesScore = firstTry + secondTry;
                 if(firstTry == 10){
@@ -71,9 +77,9 @@ public class Game {
                 frames.add(getFrame(i.getValue().get(0), nextTriesScore));
             }else if (i.getValue().get(1) == 12){
                 if (i.getKey()== 9 && i.getValue().size() == 3){
-                    firstTry = dataSet.get(i.getKey()).get(2);
+                    firstTry = dataMap.get(i.getKey()).get(2);
                 } else{
-                    firstTry = dataSet.get(i.getKey()+1).get(0);
+                    firstTry = dataMap.get(i.getKey()+1).get(0);
                 }
                 frames.add(getFrame(firstTry, i.getValue().get(1)));
             }
